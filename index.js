@@ -45,7 +45,8 @@ exports.handler = (event, context, callback) => {
     var dstKey = `thumbs/${srcKey}`;
 
     var imageType = getImageType(srcKey, callback);
-    if (!imageType) {
+    if (imageType.error) {
+        callback(imageType.error);
         return;
     }
 
@@ -76,7 +77,7 @@ exports.handler = (event, context, callback) => {
                 var height = scalingFactor * size.height;
 
                 this.resize(width, height)
-                    .toBuffer(imageType, function (err, buffer) {
+                    .toBuffer(imageType.imageType, function (err, buffer) {
                         if (err) {
                             next(err);
                         } else {
