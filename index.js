@@ -52,6 +52,7 @@ exports.handler = (event, context, callback) => {
 
     async.waterfall([
         function downloadImage(next) {
+            console.log('Downloading image', srcBucket, srcKey);
             s3.getObject(
                 {
                     Bucket: srcBucket,
@@ -60,11 +61,13 @@ exports.handler = (event, context, callback) => {
                 next);
         },
         function transformImage(response, next) {
+            console.log('Transforming image');
             gm(response.Body).size(function (err, size) {
                 var metadata = response.Metadata;
                 console.log(
                     'Metadata:\n',
                     util.inspect(metadata, { depth: 5 }));
+                console.log('Size', size);
 
                 var max_width = metadata.width || DEFAULT_MAX_WIDTH;
                 var max_height = metadata.height || DEFAULT_MAX_HEIGHT;
@@ -76,17 +79,22 @@ exports.handler = (event, context, callback) => {
                 var width = scalingFactor * size.width;
                 var height = scalingFactor * size.height;
 
+                console.log('Resizing image to', { width, height }, imageType);
                 this.resize(width, height)
                     .toBuffer(imageType.imageType, function (err, buffer) {
                         if (err) {
+                            console.log('Resize failed', err);
                             next(err);
                         } else {
+                            console.log('Resize succeeded');
                             next(null, response.ContentType, metadata, buffer);
                         }
                     });
             });
         },
         function uploadThumbnail(contentType, metadata, data, next) {
+            console.log('Uploading thumbnail');
+
             // stream the transformed image to a different s3 bucket
             s3.putObject(
                 {
@@ -105,6 +113,8 @@ exports.handler = (event, context, callback) => {
                 });
         },
         function storeMetadata(metadata, next) {
+            console.log('Storing metadata');
+
             // adds metadata to DynamoDB
             var params = {
                 TableName: DDB_TABLE,
