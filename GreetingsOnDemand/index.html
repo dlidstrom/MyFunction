@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <title>Greetings on Demand</title>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.224.1.min.js"></script>
+  </head>
+  <body>
+    <h1>Greetings on Demand</h1>
+    <p>This is an example of calling an AWS Lambda function from a web page via JavaScript.</p>
+    <p>Provide a name, and you will receive your greetings.</p>
+    <p>Try without a name, too.</p>
+    <form role="form" id="greetingsForm">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name">
+      <button type="submit" id="submitButton">Greet</button>
+    </form>
+    <div id="result"></div>
+    <script src="greetings.js"></script>
+  </body>
+</html>
