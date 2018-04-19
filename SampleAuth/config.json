@@ -1,13 +1,14 @@
 {
-  "AWS_ACCOUNT_ID": "123412341234",
-  "REGION": "us-east-1",
-  "BUCKET": "BUCKET",
+  "AWS_ACCOUNT_ID": "011446602059",
+  "REGION": "eu-west-1",
+  "BUCKET": "dlidstrom-sample-auth",
   "MAX_AGE": "10",
   "DDB_TABLE": "SampleAuthUsers",
   "IDENTITY_POOL_NAME": "SampleAuth",
-  "DEVELOPER_PROVIDER_NAME": "login.yourdomain.com",
+  "DEVELOPER_PROVIDER_NAME": "login.snittlistan.se",
   "EXTERNAL_NAME": "Sample Authentication",
-  "EMAIL_SOURCE": "sender@yourdomain.com",
-  "VERIFICATION_PAGE": "https://BUCKET.s3.amazonaws.com/verify.html",
-  "RESET_PAGE": "https://BUCKET.s3.amazonaws.com/resetPassword.html"
+  "EMAIL_SOURCE": "sender@snittlistan.se",
+  "VERIFICATION_PAGE": "https://dlidstrom-sample-auth.s3.amazonaws.com/verify.html",
+  "RESET_PAGE": "https://dlidstrom-sample-auth.s3.amazonaws.com/resetPassword.html",
+  "IDENTITY_POOL_ID": "eu-west-1:b5a2002e-dba8-4fd4-8ca9-f9ea1c5327fd"
 }
